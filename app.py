@@ -1,25 +1,21 @@
 import requests
+import time
 import json
 from datetime import datetime
 import datetime as dt
-# url = "http://helmenyun.cn/index.php/UniversalDataInterface/validate"
 
-# payload = {
-#     "username": "Shenzhenkunteng",
-#     "password": "kunteng123"
-# }
-# json_data = json.dumps(payload)
-# headers = {
-#     'content-type': "application/x-www-form-urlencoded",
-#     'cache-control': "no-cache",
-#     'postman-token': "fe43c929-a196-53c2-42a9-841ad129c067"
-# }
-
-# response = requests.request("POST", url, data=json_data, headers=headers)
-
-# print(response.text)
-
-
+def is_yang(record):
+    detail = record.get('detail')
+    judges = ''
+    for item in detail:
+        judges = judges + item['Judge'] 
+    print(judges)
+    if '无效' in judges:
+        return 'wuxiao'
+    elif '阳' in judges:
+        return 'yang'
+    else:
+        return 'yin'
 class Handler:
     drug_number_api = '/UniversalDataInterface/DataSelect_drugNum'
     data_select_api = '/UniversalDataInterface/DataSelect_drug'
@@ -112,4 +108,11 @@ if __name__ == '__main__':
     records =  []
     for i in range(1,  int(drug_number)//100+2):
         records = records + handler.get_record(i, 100, first_day_strf, last_day_strf)
+        # time.sleep(1)
     print(len(records))
+    for record in records:
+        # for key in record.keys():
+        #     print(key, record[key], sep=", ")
+        judge = is_yang(record) 
+        print(judge)
+        # break
