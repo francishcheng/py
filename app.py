@@ -282,5 +282,5 @@ if __name__ == '__main__':
         print("msg", msg)
         response = dingtalk.msg(msg)
         print(response.text)
-        time.sleep(5*60)
         print('sleep for 5 min')
+        time.sleep(5*60)
