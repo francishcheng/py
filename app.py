@@ -190,7 +190,7 @@ if __name__ == '__main__':
         # first_day = datetime(now.year, now.month%12, 1)
         last_day = datetime.now() 
         # last_day = first_day + dt.timedelta(minutes=-6)
-        first_day = last_day + dt.timedelta(minutes=-10)
+        first_day = last_day + dt.timedelta(minutes=-15)
         first_day_strf = first_day.strftime("%Y%m%d%H%M%S")
         last_day_strf = last_day.strftime("%Y%m%d%H%M%S")
         print(first_day_strf)
@@ -230,9 +230,9 @@ if __name__ == '__main__':
 
                 Ce = 3
                 C_ygz = 15242
-                youxiao = judge_youxiao(record['points'], C_ygz, Ce) 
+                youxiao, reason = judge_youxiao(record['points'], C_ygz, Ce) 
                 record['youxiao'] =  '有效' if youxiao==1 else '无效'
-
+                record['reason'] =str(reason)
                 query = {
                 'RecordID' : record['RecordID'] 
                 }
@@ -272,6 +272,8 @@ if __name__ == '__main__':
                 msg += '\n\n![screenshot](http://58.87.111.39/img/{TABLE}_{RecordID}.png)\n\n\n'.format(TABLE=username, RecordID=record['RecordID'])
                 msg += ' \n\n '.join([i['sItemName']+ ' ' + i['Judge']+ '  ' + i['Concentration'] + '  ' +i['range'] for i in record['detail']])
                 msg += ' \n\n '+ record['youxiao']  + '\n\n\n'
+                msg += '\n\n\n---------------------------------------------\n\n\n'
+                msg += ' \n\n '+ record['reason']  + '\n\n\n'
                 msg += '\n\n\n---------------------------------------------\n\n\n'
                 # judge      
                 # judge_res = '无效, 请重新测试' if int(item['judge_res']) == 0 else '有效'

@@ -434,7 +434,8 @@ def judge_youxiao(sj, C_ygz, Ce):
         if sum(reason[j])==len(reason[j]): #得分=关卡数（全对）
             true[j]=1; #有效
         
-    return int(true)
+
+    return int(true), reason
 
     # In[16]:
 
